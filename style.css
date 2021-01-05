@@ -1,0 +1,36 @@
+main {
+    text-align: center;
+    padding: 5%;
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+#time{
+ position: absolute;
+ right: 20px;    
+ top: 4px;
+}
+
+.hide {
+    display: none;
+}
+
+.buttons {
+    float: left;
+    display: table;
+}
+
+#answer {
+    width: 100%;
+    text-align: left;
+    clear: both;
+    position: relative;
+    left: 5%;
+    font-weight: lighter;
+}
+
+#right,
+#wrong {
+    width: 100%;
+    border-bottom: 1px solid black;
+}
