@@ -26,7 +26,9 @@ var clearButton = document.querySelector(".clear");
 var backButton = document.querySelector(".go-back");
 var displayCurrentHighscore = document.querySelector("#highscore");
 var displayTime = document.querySelector("#time");
-var header = document.querySelector(".header");
+var headerObject = document.querySelector(".header-object");
+var yourScoreDisplay = document.querySelector(".your-score");
+var smileHeader = document.querySelector("#smile");
 
 var finalScore = 0;
 var score = 0;
@@ -34,7 +36,6 @@ var details = [];
 var detailsScore = [];
 var questionNumber = 0;
 var time = 120;
-
 getItems();
 
 function renderDetails() {
@@ -102,7 +103,7 @@ clearButton.addEventListener("click", function (event) {
 });
 
 backButton.addEventListener("click", function () {
-    window.location.reload();
+  window.location.reload();
 });
 
 // add submit button to initials and store in local storage
@@ -113,13 +114,12 @@ function getMaxScore(detailsScore) {
 
 var maxScore = getMaxScore(detailsScore);
 var displayMaxScore = maxScore.value;
-console.log(maxScore);
 if (maxScore >= 1) {
   displayCurrentHighscore.append(maxScore);
 }
 
 function toggleDisplay() {
-    var introduction = document.querySelector(".openning");
+  var introduction = document.querySelector(".openning");
 
   introduction.classList.add("hide");
   questionOne.classList.remove("hide");
@@ -131,7 +131,7 @@ function toggleDisplay() {
 
     if (time === 0) {
       alert("You ran out of time! let's see how you did...");
-      header.classList.add("hide");
+      headerObject.classList.add("hide");
       questions[questionNumber].classList.add("hide");
       enterDetails.classList.remove("hide");
       score = finalScore;
@@ -139,7 +139,7 @@ function toggleDisplay() {
   }, 1000);
   function myStopFunction() {
     clearInterval(timerInterval);
-    header.classList.add("hide");
+    headerObject.classList.add("hide");
   }
   incorrectFive.forEach(function (incorrectFive) {
     incorrectFive.addEventListener("click", myStopFunction);
@@ -190,7 +190,6 @@ function correctQuestions() {
     }
   }, 100);
 }
-
 function correctQuestionFive() {
   rightText.classList.remove("hide");
 
@@ -202,13 +201,14 @@ function correctQuestionFive() {
       questionFive.classList.add("hide");
       enterDetails.classList.remove("hide");
       rightText.classList.add("hide");
+      smileHeader.classList.remove("hide");
 
       finalScore += 5;
       score = finalScore;
     }
+    yourScoreDisplay.innerHTML = score;
   }, 100);
 }
-
 function incorrectQuestions() {
   var responseIncorrect = questions[questionNumber];
   var newQuestionIncorrect = questions[questionNumber + 1];
@@ -222,11 +222,11 @@ function incorrectQuestions() {
       responseIncorrect.classList.add("hide");
       newQuestionIncorrect.classList.remove("hide");
       wrongText.classList.add("hide");
+      time = time - 10;
     }
   }, 100);
   questionNumber++;
   finalScore += 1;
-  //   detailsScore.push(score);
 }
 
 function incorrectQuestionFive() {
@@ -240,10 +240,12 @@ function incorrectQuestionFive() {
       questionFive.classList.add("hide");
       enterDetails.classList.remove("hide");
       wrongText.classList.add("hide");
+      smileHeader.classList.remove("hide");
     }
   }, 100);
   finalScore += 1;
   score = finalScore;
+  yourScoreDisplay.innerHTML = score;
 }
 
 start.addEventListener("click", toggleDisplay);
@@ -261,7 +263,3 @@ for (k = 0; k < questions.length - 1; k++) {
 incorrectFive.forEach(function (incorrectFive) {
   incorrectFive.addEventListener("click", incorrectQuestionFive);
 });
-
-console.log(detailsScore);
-console.log(details);
-console.log(time);

@@ -1,3 +1,7 @@
+body {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
 main {
     text-align: center;
     padding: 5%;
@@ -5,7 +9,8 @@ main {
     padding-right: 30%;
 }
 
-#time{
+#time, 
+#smile {
  position: absolute;
  right: 20px;    
  top: 4px;
@@ -18,6 +23,17 @@ main {
 .buttons {
     float: left;
     display: table;
+}
+
+button {
+    padding: 0.3em 1.2em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 2em;
+    box-sizing: border-box;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    background-color:#4eb5f1;
+    text-align:center;
 }
 
 #answer {
