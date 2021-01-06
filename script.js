@@ -36,8 +36,127 @@ var details = [];
 var detailsScore = [];
 var questionNumber = 0;
 var time = 120;
+
+// objects storing questions and answers
+var questions = [
+  questionOne,
+  questionTwo,
+  questionThree,
+  questionFour,
+  questionFive,
+];
+
+var correctResponses = [
+  correctOne,
+  correctTwo,
+  correctThree,
+  correctFour,
+  correctFive,
+]
+
+var incorrectResponses = [
+  incorrectOne,
+  incorrectTwo,
+  incorrectThree,
+  incorrectFour,
+  incorrectFive,
+];
+
+// when a correct answer is chosen
+// score increases by 5
+// timer is used to display correct on screen for half a second
+function correctQuestions() {
+  var responseCorrect = questions[questionNumber];
+  var newQuestionCorrect = questions[questionNumber + 1];
+
+  rightText.classList.remove("hide");
+  var timeLeft = 5;
+  setInterval(function () {
+    timeLeft--;
+
+    if (timeLeft === 0) {
+      responseCorrect.classList.add("hide");
+      newQuestionCorrect.classList.remove("hide");
+      rightText.classList.add("hide");
+
+      questionNumber++;
+      finalScore += 5;
+    }
+  }, 100);
+}
+
+// upodates score variable 
+// end quiz page is shown
+// displays users score to the user
+function correctQuestionFive() {
+  rightText.classList.remove("hide");
+
+  var timeLeft = 5;
+  setInterval(function () {
+    timeLeft--;
+
+    if (timeLeft === 0) {
+      questionFive.classList.add("hide");
+      enterDetails.classList.remove("hide");
+      rightText.classList.add("hide");
+      smileHeader.classList.remove("hide");
+
+      finalScore += 5;
+      score = finalScore;
+    }
+    yourScoreDisplay.innerHTML = score;
+  }, 100);
+}
+
+// incorrect answer is chosen
+// score increases by 1
+// time decreases by 10 seconds
+// incorrect label is shown for half a second
+function incorrectQuestions() {
+  var responseIncorrect = questions[questionNumber];
+  var newQuestionIncorrect = questions[questionNumber + 1];
+
+  wrongText.classList.remove("hide");
+  var timeLeft = 5;
+  setInterval(function () {
+    timeLeft--;
+
+    if (timeLeft === 0) {
+      responseIncorrect.classList.add("hide");
+      newQuestionIncorrect.classList.remove("hide");
+      wrongText.classList.add("hide");
+      time = time - 10;
+    }
+  }, 100);
+  questionNumber++;
+  finalScore += 1;
+}
+
+// updates score variable 
+// displays score to user
+function incorrectQuestionFive() {
+  wrongText.classList.remove("hide");
+
+  var timeLeft = 5;
+  setInterval(function () {
+    timeLeft--;
+
+    if (timeLeft === 0) {
+      questionFive.classList.add("hide");
+      enterDetails.classList.remove("hide");
+      wrongText.classList.add("hide");
+      smileHeader.classList.remove("hide");
+    }
+  }, 100);
+  finalScore += 1;
+  score = finalScore;
+  yourScoreDisplay.innerHTML = score;
+}
+
+// call getItems function
 getItems();
 
+// Displays score and user details
 function renderDetails() {
   scorecard.innerHTML = "";
 
@@ -55,6 +174,7 @@ function renderDetails() {
   }
 }
 
+// getting items from local storage
 function getItems() {
   var storedDetails = JSON.parse(localStorage.getItem("details"));
   var storedDetailsScore = JSON.parse(localStorage.getItem("detailsScore"));
@@ -66,11 +186,15 @@ function getItems() {
   renderDetails();
 }
 
+// storeing details and score in local storage
 function storeDetails() {
   localStorage.setItem("details", JSON.stringify(details));
   localStorage.setItem("detailsScore", JSON.stringify(detailsScore));
 }
 
+// when submit button is clicked, score is pushed to details and details score array
+// check score !== 0 to prevent declaration variable being stored
+// check for input of intitials in submit box
 submitButton.addEventListener("click", function (event) {
   event.preventDefault();
   var detailsText = submitInitials.value;
@@ -88,10 +212,9 @@ submitButton.addEventListener("click", function (event) {
 
   storeDetails();
   renderDetails();
-
-  // add page for this to display
 });
 
+// clears highscores when clear button clicked
 clearButton.addEventListener("click", function (event) {
   var element = event.target;
   var index = element.parentElement.getAttribute("data-index");
@@ -102,22 +225,25 @@ clearButton.addEventListener("click", function (event) {
   renderDetails();
 });
 
+// refreshes page to restart quiz
 backButton.addEventListener("click", function () {
   window.location.reload();
 });
-
-// add submit button to initials and store in local storage
 
 function getMaxScore(detailsScore) {
   return Math.max.apply(null, detailsScore);
 }
 
+// display the current highscore to the header object
 var maxScore = getMaxScore(detailsScore);
 var displayMaxScore = maxScore.value;
 if (maxScore >= 1) {
   displayCurrentHighscore.append(maxScore);
 }
 
+// function to begin quiz
+// executes end quiz code if user runs out of time
+// stops timer
 function toggleDisplay() {
   var introduction = document.querySelector(".openning");
 
@@ -147,119 +273,23 @@ function toggleDisplay() {
   });
 }
 
-var questions = [
-  questionOne,
-  questionTwo,
-  questionThree,
-  questionFour,
-  questionFive,
-];
-
-var correctResponses = [
-  correctOne,
-  correctTwo,
-  correctThree,
-  correctFour,
-  correctFive,
-];
-
-var incorrectResponses = [
-  incorrectOne,
-  incorrectTwo,
-  incorrectThree,
-  incorrectFour,
-  incorrectFive,
-];
-
-function correctQuestions() {
-  var responseCorrect = questions[questionNumber];
-  var newQuestionCorrect = questions[questionNumber + 1];
-
-  rightText.classList.remove("hide");
-  var timeLeft = 5;
-  setInterval(function () {
-    timeLeft--;
-
-    if (timeLeft === 0) {
-      responseCorrect.classList.add("hide");
-      newQuestionCorrect.classList.remove("hide");
-      rightText.classList.add("hide");
-
-      questionNumber++;
-      finalScore += 5;
-    }
-  }, 100);
-}
-function correctQuestionFive() {
-  rightText.classList.remove("hide");
-
-  var timeLeft = 5;
-  setInterval(function () {
-    timeLeft--;
-
-    if (timeLeft === 0) {
-      questionFive.classList.add("hide");
-      enterDetails.classList.remove("hide");
-      rightText.classList.add("hide");
-      smileHeader.classList.remove("hide");
-
-      finalScore += 5;
-      score = finalScore;
-    }
-    yourScoreDisplay.innerHTML = score;
-  }, 100);
-}
-function incorrectQuestions() {
-  var responseIncorrect = questions[questionNumber];
-  var newQuestionIncorrect = questions[questionNumber + 1];
-
-  wrongText.classList.remove("hide");
-  var timeLeft = 5;
-  setInterval(function () {
-    timeLeft--;
-
-    if (timeLeft === 0) {
-      responseIncorrect.classList.add("hide");
-      newQuestionIncorrect.classList.remove("hide");
-      wrongText.classList.add("hide");
-      time = time - 10;
-    }
-  }, 100);
-  questionNumber++;
-  finalScore += 1;
-}
-
-function incorrectQuestionFive() {
-  wrongText.classList.remove("hide");
-
-  var timeLeft = 5;
-  setInterval(function () {
-    timeLeft--;
-
-    if (timeLeft === 0) {
-      questionFive.classList.add("hide");
-      enterDetails.classList.remove("hide");
-      wrongText.classList.add("hide");
-      smileHeader.classList.remove("hide");
-    }
-  }, 100);
-  finalScore += 1;
-  score = finalScore;
-  yourScoreDisplay.innerHTML = score;
-}
-
+// when begin quiz button is clicked, execute toggleDisplay function
 start.addEventListener("click", toggleDisplay);
+// when a correct answer is chosen, execute correctQuestions function
 for (var j = 0; j < questions.length - 1; j++) {
   var responses = questions[j];
   correctResponses[j].addEventListener("click", correctQuestions);
 }
+// event listener for when the correct answer for question five is chosen
 correctFive.addEventListener("click", correctQuestionFive);
 
+// when an incorrect answer is chosen, execute incorrectQuestions
 for (k = 0; k < questions.length - 1; k++) {
   incorrectResponses[k].forEach(function (incorrectResponses) {
     incorrectResponses.addEventListener("click", incorrectQuestions);
   });
 }
+// event listener for when an incorrect answer is chosen for question5
 incorrectFive.forEach(function (incorrectFive) {
   incorrectFive.addEventListener("click", incorrectQuestionFive);
 });

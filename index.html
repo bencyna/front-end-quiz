@@ -12,6 +12,7 @@
     <title>Quiz Challenge</title>
   </head>
   <body>
+    <!-- Display header -->
     <header class="header">
       <div class="header-object">
         <div id="highscore">Highscore:</div>
@@ -20,6 +21,7 @@
       <div id="smile" class="hide">:)</div>
     </header>
     <main>
+      <!-- First page presented to begin quiz using start button -->
       <div class="openning">
         <h1 class="heading" id="initial-head">Coding Quiz Challenge</h1>
         <p>
@@ -30,6 +32,7 @@
         </p>
         <button type="button" id="start">Take quiz</button>
       </div>
+      <!-- each question follows the same structure -->
       <section class="questions">
         <div class="first-question hide">
           <h2>
@@ -150,10 +153,12 @@
           </ul>
         </div>
       </section>
+      <!-- when an answer is chosen, this is displayed to the user -->
       <aside id="answer">
         <small id="right" class="hide">Correct!</small>
         <small id="wrong" class="hide">Incorrect!</small>
       </aside>
+      <!-- user can add their initials to be paired with their score -->
       <div class="end-quiz hide">
         <h2>All done!</h2>
         <h3 class="your-score"></h3>
@@ -161,6 +166,7 @@
         <input type="text" id="initials" placeholder="Type initials here" />
         <button id="submit">Submit</button>
       </div>
+      <!-- highscores are displayed here -->
       <div class="highscores hide">
         <h2>Highscores</h2>
         <ol class="score-display"></ol>
