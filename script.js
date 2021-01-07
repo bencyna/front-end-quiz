@@ -11,7 +11,6 @@ var correctTwo = document.querySelector(".correct2");
 var correctThree = document.querySelector(".correct3");
 var correctFour = document.querySelector(".correct4");
 var correctFive = document.querySelector(".correct5");
-var incorrect = document.querySelectorAll(".incorrect");
 var incorrectOne = document.querySelectorAll(".incorrect1");
 var incorrectTwo = document.querySelectorAll(".incorrect2");
 var incorrectThree = document.querySelectorAll(".incorrect3");
