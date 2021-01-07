@@ -237,7 +237,7 @@ function getMaxScore(detailsScore) {
 var maxScore = getMaxScore(detailsScore);
 var displayMaxScore = maxScore.value;
 if (maxScore >= 1) {
-  displayCurrentHighscore.append(maxScore);
+  displayCurrentHighscore.append(" " +maxScore);
 }
 
 // function to begin quiz

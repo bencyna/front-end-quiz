@@ -47,6 +47,8 @@ button {
 
 #right,
 #wrong {
+    font-family: 'Muli', sans-serif;
     width: 100%;
     border-bottom: 1px solid black;
+    font-weight: 100;
 }
